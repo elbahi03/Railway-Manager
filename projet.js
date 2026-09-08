@@ -220,7 +220,7 @@ function Afficher() {
 }
 // function of find trajet :
 function FindTrajet(id) {
-    let index 
+    let index
     for (i = 0; i < trips.length; i++) {
         if (trips[i].id === id) {
             if (trips[i].availableSeats > 0) {
@@ -234,15 +234,15 @@ function FindTrajet(id) {
     return index;
 }
 // function of find ticket :
-function Findticket(id){
-    let index 
-    for(i=0; i< tickets.length ; i++ ){
-        if (tickets[i].id === id){
+function Findticket(id) {
+    let index
+    for (i = 0; i < tickets.length; i++) {
+        if (tickets[i].id === id) {
             index = i;
-            return index ;
+            return index;
         }
     }
-    return index ;
+    return index;
 }
 let Quitter = false;
 
@@ -267,11 +267,7 @@ while (Quitter === false) {
             } else if (index === -1) {
                 console.log("Train complet.")
             } else {
-                if(tickets.length === 0){ 
-                    ticket.id = 1;
-                }else {
-                    ticket.id = tickets.length;
-                }
+                ticket.id = tickets.length + 1;
                 trips[index].availableSeats -= 1;
                 ticket.seatNumber = 50 - trips[index].availableSeats;
                 ticket.price = trips[index].price;
@@ -303,14 +299,15 @@ while (Quitter === false) {
         case 4:
             console.log("=== Identifiant du ticket ===")
             let id = Number(prompt("Identifiant du ticket :"))
-            let trouve = Findticket(id) ;
-            if ( trouve === undefined ){
+            let trouve = Findticket(id);
+            if (trouve === undefined) {
                 console.log("Ticket introuvable.")
-            }else {
+            } else {
+                trips[tickets[trouve].tripId - 1].availableSeats += 1
                 tickets.splice(trouve, 1)
                 console.log("Ticket annulé avec succès.")
             }
-            break
+            break;
         case 0:
             console.log("by by")
             Quitter = true
