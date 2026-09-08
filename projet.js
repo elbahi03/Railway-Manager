@@ -254,7 +254,9 @@ while (Quitter === false) {
             } else if (index === -1) {
                 console.log("Train complet.")
             } else {
-                { 
+                if(tickets.length === 0){ 
+                    ticket.id = 1;
+                }else {
                     ticket.id = tickets.length;
                 }
                 trips[index].availableSeats -= 1;
@@ -262,7 +264,6 @@ while (Quitter === false) {
                 ticket.price = trips[index].price;
                 tickets.push(ticket);
                 console.log(`Ticket acheté avec succès.`);
-                console.log({ tickets })
                 let length = tickets.length
                 console.log(`
                     Ticket# ${tickets[length - 1].id}
