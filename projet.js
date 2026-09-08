@@ -218,7 +218,9 @@ function Afficher() {
                     `)
     }
 }
+// function of find trajet :
 function FindTrajet(id) {
+    let index 
     for (i = 0; i < trips.length; i++) {
         if (trips[i].id === id) {
             if (trips[i].availableSeats > 0) {
@@ -230,6 +232,17 @@ function FindTrajet(id) {
         }
     }
     return index;
+}
+// function of find ticket :
+function Findticket(id){
+    let index 
+    for(i=0; i< tickets.length ; i++ ){
+        if (tickets[i].id === id){
+            index = i;
+            return index ;
+        }
+    }
+    return index ;
 }
 let Quitter = false;
 
@@ -276,6 +289,7 @@ while (Quitter === false) {
             }
             break;
         case 3:
+            console.log("=== TICKETS DISPONIBLES ===")
             for (let i = 0; i < tickets.length; i++) {
                 console.log(`
                     Ticket# ${tickets[i].id}
@@ -286,6 +300,17 @@ while (Quitter === false) {
                     `)
             }
             break;
+        case 4:
+            console.log("=== Identifiant du ticket ===")
+            let id = Number(prompt("Identifiant du ticket :"))
+            let trouve = Findticket(id) ;
+            if ( trouve === undefined ){
+                console.log("Ticket introuvable.")
+            }else {
+                tickets.splice(trouve, 1)
+                console.log("Ticket annulé avec succès.")
+            }
+            break
         case 0:
             console.log("by by")
             Quitter = true
