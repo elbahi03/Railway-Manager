@@ -187,4 +187,34 @@ const trips = [
     }
 ];
 
+// * Functions :
 
+// function of menu :
+function choisir() {
+    console.log(`
+     Menu de RAILWAY MANAGER :
+     1. Afficher les trajets .
+     2. Acheter un ticket .
+     3. Afficher les tickets .
+     4. Annuler un ticket .
+     5. Rechercher un ticket .
+     6. Filtrer les trajets .
+     7. Trier les trajets .
+     0. Quitter .
+    `);
+    choix = Number(prompt("votre choix : "));
+}
+
+let Quitter = false;
+
+// code start :
+while (Quitter === false) {
+    choisir()
+    switch (choix) {
+        case 1:
+        case 0:
+            console.log("by by")
+            Quitter = true
+            break;
+    }
+}
