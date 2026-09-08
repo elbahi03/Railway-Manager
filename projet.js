@@ -186,6 +186,8 @@ const trips = [
         availableSeats: 50
     }
 ];
+// data tichet :
+const tickets = [];
 
 // * Functions :
 
@@ -205,16 +207,29 @@ function choisir() {
     choix = Number(prompt("votre choix : "));
 }
 // function of Affichage :
-function Afficher(){
-    for(let i=0; i < trips.length ; i++ ){
-                console.log(`
+function Afficher() {
+    for (let i = 0; i < trips.length; i++) {
+        console.log(`
                     # ${trips[i].id} ${trips[i].departure} -> ${trips[i].destination}
                     Départ : ${trips[i].departureTime}
                     Arrivée : ${trips[i].arrivalTime}
                     Prix : ${trips[i].price}
                     Places disponibles ${trips[i].availableSeats}
                     `)
+    }
+}
+function FindTrajet(id) {
+    for (i = 0; i < trips.length; i++) {
+        if (trips[i].id === id) {
+            if (trips[i].availableSeats > 0) {
+                index = i;
+                break;
+            } else {
+                index = -1
             }
+        }
+    }
+    return index;
 }
 let Quitter = false;
 
@@ -225,7 +240,51 @@ while (Quitter === false) {
         case 1:
             console.log("=== TRAJETS DISPONIBLES ===")
             Afficher();
-            break ;
+            break;
+        case 2:
+            console.log("=== Acheter un ticket ===")
+            console.log("remplir les information :");
+            let ticket = {
+                passengerName: prompt("Nom du passager : "),
+                tripId: Number(prompt("Identifiant du trajet : "))
+            };
+            let index = FindTrajet(ticket.tripId)
+            if (index === undefined) {
+                console.log("Trajet introuvable.")
+            } else if (index === -1) {
+                console.log("Train complet.")
+            } else {
+                { 
+                    ticket.id = tickets.length;
+                }
+                trips[index].availableSeats -= 1;
+                ticket.seatNumber = 50 - trips[index].availableSeats;
+                ticket.price = trips[index].price;
+                tickets.push(ticket);
+                console.log(`Ticket acheté avec succès.`);
+                console.log({ tickets })
+                let length = tickets.length
+                console.log(`
+                    Ticket# ${tickets[length - 1].id}
+                    Passager : ${tickets[length - 1].passengerName}
+                    Trajet : ${trips[tickets[length - 1].tripId].departure} -> ${trips[tickets[length - 1].tripId].destination}
+                    Place : ${tickets[length - 1].seatNumber}
+                    Prix : ${tickets[length - 1].price}
+                    `)
+
+            }
+            break;
+        case 3:
+            for (let i = 0; i < tickets.length; i++) {
+                console.log(`
+                    Ticket# ${tickets[i].id}
+                    Passager : ${tickets[i].passengerName}
+                    Trajet : ${trips[tickets[i].tripId].departure} -> ${trips[tickets[i].tripId].destination}
+                    Place : ${tickets[i].seatNumber}
+                    Prix : ${tickets[i].price}
+                    `)
+            }
+            break;
         case 0:
             console.log("by by")
             Quitter = true
