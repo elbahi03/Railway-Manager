@@ -204,7 +204,18 @@ function choisir() {
     `);
     choix = Number(prompt("votre choix : "));
 }
-
+// function of Affichage :
+function Afficher(){
+    for(let i=0; i < trips.length ; i++ ){
+                console.log(`
+                    # ${trips[i].id} ${trips[i].departure} -> ${trips[i].destination}
+                    Départ : ${trips[i].departureTime}
+                    Arrivée : ${trips[i].arrivalTime}
+                    Prix : ${trips[i].price}
+                    Places disponibles ${trips[i].availableSeats}
+                    `)
+            }
+}
 let Quitter = false;
 
 // code start :
@@ -212,6 +223,9 @@ while (Quitter === false) {
     choisir()
     switch (choix) {
         case 1:
+            console.log("=== TRAJETS DISPONIBLES ===")
+            Afficher();
+            break ;
         case 0:
             console.log("by by")
             Quitter = true
