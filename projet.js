@@ -244,6 +244,7 @@ function Findticket(id) {
     }
     return index;
 }
+
 let Quitter = false;
 
 // code start :
@@ -277,7 +278,7 @@ while (Quitter === false) {
                 console.log(`
                     Ticket# ${tickets[length - 1].id}
                     Passager : ${tickets[length - 1].passengerName}
-                    Trajet : ${trips[tickets[length - 1].tripId].departure} -> ${trips[tickets[length - 1].tripId].destination}
+                    Trajet : ${trips[tickets[length - 1].tripId -1].departure} -> ${trips[tickets[length - 1].tripId -1].destination}
                     Place : ${tickets[length - 1].seatNumber}
                     Prix : ${tickets[length - 1].price}
                     `)
@@ -290,7 +291,7 @@ while (Quitter === false) {
                 console.log(`
                     Ticket# ${tickets[i].id}
                     Passager : ${tickets[i].passengerName}
-                    Trajet : ${trips[tickets[i].tripId].departure} -> ${trips[tickets[i].tripId].destination}
+                    Trajet : ${trips[tickets[i].tripId -1].departure} -> ${trips[tickets[i].tripId -1].destination}
                     Place : ${tickets[i].seatNumber}
                     Prix : ${tickets[i].price}
                     `)
@@ -308,6 +309,20 @@ while (Quitter === false) {
                 console.log("Ticket annulé avec succès.")
             }
             break;
+        case 5:
+            console.log("=== Recherche par nom du passager ===")
+            let nom = prompt("Nom du passager :");
+            for (i = 0 ; i< tickets.length ; i ++){
+                if( tickets[i].passengerName === nom ){
+                    console.log(`
+                    Ticket# ${tickets[i].id}
+                    Passager : ${tickets[i].passengerName}
+                    Trajet : ${trips[tickets[i].tripId].departure} -> ${trips[tickets[i].tripId].destination}
+                    Place : ${tickets[i].seatNumber}
+                    Prix : ${tickets[i].price}
+                    `)
+                }
+            }
         case 0:
             console.log("by by")
             Quitter = true
