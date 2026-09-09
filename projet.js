@@ -3,6 +3,7 @@
 // prompt-sync :
 var prompt = require('prompt-sync')();
 
+//// * DATA GROBAL
 // data trip :
 const trips = [
     {
@@ -192,6 +193,8 @@ let id_grobal = 0;
 const tickets = [];
 // data ticket annule :
 const annule = [];
+
+
 // * Functions :
 // function of menu :
 function choisir() {
