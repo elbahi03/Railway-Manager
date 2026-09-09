@@ -276,11 +276,11 @@ function Somme(){
     return somme ;
 }
 // function of Trajet le plus vendu : 
-function trajet_max(){
-    let max = trips[0].availableSeats ;
+function trajet_min(){
+    let min = trips[0].availableSeats ;
     let index = 0;
     for (i = 0; i < tickets.length; i++){
-        if (max < trips[0].availableSeats){
+        if (min > trips[0].availableSeats){
             index = i
         }
     }
@@ -296,11 +296,11 @@ let Quitter = false;
 while (Quitter === false) {
     choisir()
     switch (choix) {
-        case 1:
+        case 1: // Afficher les trajets
             console.log("=== TRAJETS DISPONIBLES ===")
             Afficher();
             break;
-        case 2:
+        case 2: // Acheter un ticket .
             console.log("=== Acheter un ticket ===")
             console.log("remplir les information :");
             let ticket = {
@@ -335,7 +335,7 @@ while (Quitter === false) {
 
             }
             break;
-        case 3:
+        case 3: // Afficher les tickets .
             console.log("=== TICKETS DISPONIBLES ===")
             for (let i = 0; i < tickets.length; i++) {
                 console.log(`
@@ -347,7 +347,7 @@ while (Quitter === false) {
                     `)
             }
             break;
-        case 4:
+        case 4: // Annuler un ticket .
             console.log("=== Identifiant du ticket ===")
             let id = Number(prompt("Identifiant du ticket :"))
             let trouve = Findticket(id);
@@ -359,7 +359,7 @@ while (Quitter === false) {
                 console.log("Ticket annulé avec succès.")
             }
             break;
-        case 5:
+        case 5: // Rechercher un ticket .
             console.log("=== Recherche par nom du passager ===")
             let nom = prompt("Nom du passager :");
             for (i = 0; i < tickets.length; i++) {
@@ -374,7 +374,7 @@ while (Quitter === false) {
                 }
             }
             break;
-        case 6:
+        case 6: // 6. Filtrer les trajets .
             console.log("=== Filtrer les trajets par ville ===")
             let ville = prompt("Ville de départ : ")
             console.log("=== RESULTAT ===")
@@ -390,11 +390,11 @@ while (Quitter === false) {
                 }
             }
             break;
-        case 7:
+        case 7: // 7. Trier les trajets .
             console.log("=== Trier les trajets : Prix croissant ===")
             Tri_croissant()
             break;
-        case 8:
+        case 8: // 8. Statistiques .
             console.log("=== Statistiques ===")
             console.log("--- Nombre total de tickets vendus  ---")
             console.log("Nombre total de tickets : "+ nbr_ticket())
@@ -402,9 +402,9 @@ while (Quitter === false) {
             console.log("Chiffre d'affaires total : "+ Somme())
             console.log("--- Trajet le plus vendu  ---")
             console.log("Trajet le plus vendu : ")
-            trajet_max()
+            trajet_min()
             break;
-        case 0:
+        case 0: // 0. Quitter .
             console.log("by by")
             Quitter = true
             break;
