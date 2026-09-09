@@ -188,7 +188,25 @@ const trips = [
 ];
 // data tichet :
 const tickets = [];
-
+// creer un array of price of trajet :
+function Tri_croissant() {
+    const tri_trips = trips;
+    for (let i = 0; i < tri_trips.length -1 ; i++) {
+        for (let j = 0; j < tri_trips.length - 1 -i; j++) {
+            if (tri_trips[j].price > tri_trips[j+1].price) {
+                let a = tri_trips[j];
+                tri_trips[j] = tri_trips[j + 1];
+                tri_trips[j + 1] = a
+            }
+        }
+    }
+    for (let i = 0; i < tri_trips.length; i++) {
+        console.log(`
+            #${tri_trips[i].id} :
+            ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
+            `)
+    }
+}
 // * Functions :
 
 // function of menu :
@@ -268,7 +286,7 @@ while (Quitter === false) {
             } else if (index === -1) {
                 console.log("Train complet.")
             } else {
-                if ( tickets.length === 0 ){
+                if (tickets.length === 0) {
                     ticket.id = 1;
                 } else {
                     let index = tickets.length
@@ -344,6 +362,10 @@ while (Quitter === false) {
                     `)
                 }
             }
+            break;
+        case 7:
+            console.log("=== Trier les trajets : Prix croissant ===")
+            Tri_croissant()
             break;
         case 0:
             console.log("by by")
