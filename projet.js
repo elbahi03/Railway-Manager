@@ -186,10 +186,13 @@ const trips = [
         availableSeats: 50
     }
 ];
+// ticket grobal :
+let id_grobal = 0;
 // data tichet :
 const tickets = [];
+// data ticket annule :
+const annule = [];
 // * Functions :
-
 // function of menu :
 function choisir() {
     console.log(`
@@ -244,6 +247,17 @@ function Findticket(id) {
     }
     return index;
 }
+// function of find id ticket annule :
+function Findticket_annule(id) {
+    let index;
+    for (i = 0; i < annule.length; i++) {
+        if (annule[i].tripId === id) {
+            index = i;
+            return index;
+        }
+    }
+    return index;
+}
 // function of price of trajet :
 function Tri_croissant() {
     const tri_trips = trips;
@@ -264,23 +278,23 @@ function Tri_croissant() {
     }
 }
 // function of Nombre total de tickets vendus :
-function nbr_ticket(){
+function nbr_ticket() {
     return tickets.length;
 }
 // function of la somme des prix des tickets : 
-function Somme(){
-    let somme = 0 ;
-    for (i = 0; i < tickets.length; i++){
+function Somme() {
+    let somme = 0;
+    for (i = 0; i < tickets.length; i++) {
         somme += tickets[i].price;
     }
-    return somme ;
+    return somme;
 }
 // function of Trajet le plus vendu : 
-function trajet_min(){
-    let min = trips[0].availableSeats ;
+function trajet_min() {
+    let min = trips[0].availableSeats;
     let index = 0;
-    for (i = 0; i < tickets.length; i++){
-        if (min > trips[0].availableSeats){
+    for (i = 0; i < tickets.length; i++) {
+        if (min > trips[0].availableSeats) {
             index = i
         }
     }
@@ -307,32 +321,49 @@ while (Quitter === false) {
                 passengerName: prompt("Nom du passager : "),
                 tripId: Number(prompt("Identifiant du trajet : "))
             };
-            let index = FindTrajet(ticket.tripId)
-            if (index === undefined) {
-                console.log("Trajet introuvable.")
-            } else if (index === -1) {
-                console.log("Train complet.")
-            } else {
-                if (tickets.length === 0) {
-                    ticket.id = 1;
-                } else {
-                    let index = tickets.length
-                    ticket.id = tickets[index - 1] + 1;
-                }
-                trips[index].availableSeats -= 1;
-                ticket.seatNumber = 50 - trips[index].availableSeats;
-                ticket.price = trips[index].price;
-                tickets.push(ticket);
-                console.log(`Ticket acheté avec succès.`);
+            let NAME = ticket.passengerName
+            console.log(Findticket_annule(ticket.tripId) != undefined)
+            if (Findticket_annule(ticket.tripId) != undefined) {
+                let index = Findticket_annule(ticket.tripId);
+                let Annuler = annule[index]
+                id_grobal++
+                Annuler.id = id_grobal++;
+                Annuler.passengerName = NAME ;
+                let nbrr = ticket.tripId - 1 ;
+                trips[nbrr].availableSeats -= 1;
+                tickets.push(Annuler);
+                annule.splice(index, 1);
                 let length = tickets.length
-                console.log(`
+                    console.log(`
                     Ticket# ${tickets[length - 1].id}
                     Passager : ${tickets[length - 1].passengerName}
                     Trajet : ${trips[tickets[length - 1].tripId - 1].departure} -> ${trips[tickets[length - 1].tripId - 1].destination}
                     Place : ${tickets[length - 1].seatNumber}
                     Prix : ${tickets[length - 1].price}
                     `)
-
+            } else {
+                let index = FindTrajet(ticket.tripId)
+                if (index === undefined) {
+                    console.log("Trajet introuvable.")
+                } else if (index === -1) {
+                    console.log("Train complet.")
+                } else {
+                    id_grobal++;
+                    ticket.id = id_grobal;
+                    trips[index].availableSeats -= 1;
+                    ticket.seatNumber = 50 - trips[index].availableSeats;
+                    ticket.price = trips[index].price;
+                    tickets.push(ticket);
+                    console.log(`Ticket acheté avec succès.`);
+                    let length = tickets.length
+                    console.log(`
+                    Ticket# ${tickets[length - 1].id}
+                    Passager : ${tickets[length - 1].passengerName}
+                    Trajet : ${trips[tickets[length - 1].tripId - 1].departure} -> ${trips[tickets[length - 1].tripId - 1].destination}
+                    Place : ${tickets[length - 1].seatNumber}
+                    Prix : ${tickets[length - 1].price}
+                    `)
+                }
             }
             break;
         case 3: // Afficher les tickets .
@@ -355,6 +386,7 @@ while (Quitter === false) {
                 console.log("Ticket introuvable.")
             } else {
                 trips[tickets[trouve].tripId - 1].availableSeats += 1
+                annule.push(tickets[trouve])
                 tickets.splice(trouve, 1)
                 console.log("Ticket annulé avec succès.")
             }
@@ -397,13 +429,25 @@ while (Quitter === false) {
         case 8: // 8. Statistiques .
             console.log("=== Statistiques ===")
             console.log("--- Nombre total de tickets vendus  ---")
-            console.log("Nombre total de tickets : "+ nbr_ticket())
+            console.log("Nombre total de tickets : " + nbr_ticket())
             console.log("--- Chiffre d'affaires total  ---")
-            console.log("Chiffre d'affaires total : "+ Somme())
+            console.log("Chiffre d'affaires total : " + Somme())
             console.log("--- Trajet le plus vendu  ---")
             console.log("Trajet le plus vendu : ")
             trajet_min()
             break;
+        case 9: // 9. ticket annulle 
+         console.log("=== TICKETS DISPONIBLES ===")
+            for (let i = 0; i < annule.length; i++) {
+                console.log(`
+                    Ticket# ${annule[i].id}
+                    Passager : ${annule[i].passengerName}
+                    Trajet : ${trips[annule[i].tripId - 1].departure} -> ${trips[annule[i].tripId - 1].destination}
+                    Place : ${annule[i].seatNumber}
+                    Prix : ${annule[i].price}
+                    `)
+            }
+        break
         case 0: // 0. Quitter .
             console.log("by by")
             Quitter = true
