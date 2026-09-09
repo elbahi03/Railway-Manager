@@ -188,52 +188,34 @@ const trips = [
 ];
 // data tichet :
 const tickets = [];
-// creer un array of price of trajet :
-function Tri_croissant() {
-    const tri_trips = trips;
-    for (let i = 0; i < tri_trips.length -1 ; i++) {
-        for (let j = 0; j < tri_trips.length - 1 -i; j++) {
-            if (tri_trips[j].price > tri_trips[j+1].price) {
-                let a = tri_trips[j];
-                tri_trips[j] = tri_trips[j + 1];
-                tri_trips[j + 1] = a
-            }
-        }
-    }
-    for (let i = 0; i < tri_trips.length; i++) {
-        console.log(`
-            #${tri_trips[i].id} :
-            ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
-            `)
-    }
-}
 // * Functions :
 
 // function of menu :
 function choisir() {
     console.log(`
-     Menu de RAILWAY MANAGER :
-     1. Afficher les trajets .
-     2. Acheter un ticket .
-     3. Afficher les tickets .
-     4. Annuler un ticket .
-     5. Rechercher un ticket .
-     6. Filtrer les trajets .
-     7. Trier les trajets .
-     0. Quitter .
-    `);
+        Menu de RAILWAY MANAGER :
+        1. Afficher les trajets .
+        2. Acheter un ticket .
+        3. Afficher les tickets .
+        4. Annuler un ticket .
+        5. Rechercher un ticket .
+        6. Filtrer les trajets .
+        7. Trier les trajets .
+        8. Statistiques .
+        0. Quitter .
+        `);
     choix = Number(prompt("votre choix : "));
 }
 // function of Affichage :
 function Afficher() {
     for (let i = 0; i < trips.length; i++) {
         console.log(`
-                    # ${trips[i].id} ${trips[i].departure} -> ${trips[i].destination}
-                    Départ : ${trips[i].departureTime}
-                    Arrivée : ${trips[i].arrivalTime}
-                    Prix : ${trips[i].price}
-                    Places disponibles ${trips[i].availableSeats}
-                    `)
+                # ${trips[i].id} ${trips[i].departure} -> ${trips[i].destination}
+                Départ : ${trips[i].departureTime}
+                Arrivée : ${trips[i].arrivalTime}
+                Prix : ${trips[i].price}
+                Places disponibles ${trips[i].availableSeats}
+                `)
     }
 }
 // function of find trajet :
@@ -262,7 +244,52 @@ function Findticket(id) {
     }
     return index;
 }
-
+// function of price of trajet :
+function Tri_croissant() {
+    const tri_trips = trips;
+    for (let i = 0; i < tri_trips.length - 1; i++) {
+        for (let j = 0; j < tri_trips.length - 1 - i; j++) {
+            if (tri_trips[j].price > tri_trips[j + 1].price) {
+                let a = tri_trips[j];
+                tri_trips[j] = tri_trips[j + 1];
+                tri_trips[j + 1] = a
+            }
+        }
+    }
+    for (let i = 0; i < tri_trips.length; i++) {
+        console.log(`
+                    #${tri_trips[i].id} :
+                    ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
+                    `)
+    }
+}
+// function of Nombre total de tickets vendus :
+function nbr_ticket(){
+    return tickets.length;
+}
+// function of la somme des prix des tickets : 
+function Somme(){
+    let somme = 0 ;
+    for (i = 0; i < tickets.length; i++){
+        somme += tickets[i].price;
+    }
+    return somme ;
+}
+// function of Trajet le plus vendu : 
+function trajet_max(){
+    let max = trips[0].availableSeats ;
+    let index = 0;
+    for (i = 0; i < tickets.length; i++){
+        if (max < trips[0].availableSeats){
+            index = i
+        }
+    }
+    console.log(`
+        #${trips[index].id} :
+            ${trips[index].departure} -> ${trips[index].destination}
+            ${50 - trips[index].availableSeats} tickets vendus .      
+        `)
+}
 let Quitter = false;
 
 // code start :
@@ -366,6 +393,16 @@ while (Quitter === false) {
         case 7:
             console.log("=== Trier les trajets : Prix croissant ===")
             Tri_croissant()
+            break;
+        case 8:
+            console.log("=== Statistiques ===")
+            console.log("--- Nombre total de tickets vendus  ---")
+            console.log("Nombre total de tickets : "+ nbr_ticket())
+            console.log("--- Chiffre d'affaires total  ---")
+            console.log("Chiffre d'affaires total : "+ Somme())
+            console.log("--- Trajet le plus vendu  ---")
+            console.log("Trajet le plus vendu : ")
+            trajet_max()
             break;
         case 0:
             console.log("by by")
