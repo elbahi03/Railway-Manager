@@ -268,7 +268,12 @@ while (Quitter === false) {
             } else if (index === -1) {
                 console.log("Train complet.")
             } else {
-                ticket.id = tickets.length + 1;
+                if ( tickets.length === 0 ){
+                    ticket.id = 1;
+                } else {
+                    let index = tickets.length
+                    ticket.id = tickets[index - 1] + 1;
+                }
                 trips[index].availableSeats -= 1;
                 ticket.seatNumber = 50 - trips[index].availableSeats;
                 ticket.price = trips[index].price;
