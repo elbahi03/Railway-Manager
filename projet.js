@@ -263,7 +263,14 @@ function Findticket_annule(id) {
 }
 // function of price of trajet :
 function Tri_croissant() {
+    console.log(`choisir mode de tri :
+        1. Croissant .
+        2. Decroissant .
+        any. Quitte
+        `)
+    let number = Number(prompt("entrer votre choix :"))
     const tri_trips = trips;
+    // tri by  : buble sort :
     for (let i = 0; i < tri_trips.length - 1; i++) {
         for (let j = 0; j < tri_trips.length - 1 - i; j++) {
             if (tri_trips[j].price > tri_trips[j + 1].price) {
@@ -273,11 +280,22 @@ function Tri_croissant() {
             }
         }
     }
-    for (let i = 0; i < tri_trips.length; i++) {
-        console.log(`
+    if (number === 1) {
+        for (let i = 0; i < tri_trips.length; i++) {
+            console.log(`
                     #${tri_trips[i].id} :
                     ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
                     `)
+        }
+    }else if (number === 2){
+        for (let i = tri_trips.length -1 ; i >= 0; i--) {
+            console.log(`
+                    #${tri_trips[i].id} :
+                    ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
+                    `)
+        }
+    } else {
+        console.log("Quitte")
     }
 }
 // function of Nombre total de tickets vendus :
@@ -325,19 +343,19 @@ while (Quitter === false) {
                 tripId: Number(prompt("Identifiant du trajet : "))
             };
             let NAME = ticket.passengerName
-            console.log(Findticket_annule(ticket.tripId) != undefined)
+            // on a cette trajet en tichet anuule :
             if (Findticket_annule(ticket.tripId) != undefined) {
                 let index = Findticket_annule(ticket.tripId);
                 let Annuler = annule[index]
                 id_grobal++
                 Annuler.id = id_grobal++;
-                Annuler.passengerName = NAME ;
-                let nbrr = ticket.tripId - 1 ;
+                Annuler.passengerName = NAME;
+                let nbrr = ticket.tripId - 1;
                 trips[nbrr].availableSeats -= 1;
                 tickets.push(Annuler);
                 annule.splice(index, 1);
                 let length = tickets.length
-                    console.log(`
+                console.log(`
                     Ticket# ${tickets[length - 1].id}
                     Passager : ${tickets[length - 1].passengerName}
                     Trajet : ${trips[tickets[length - 1].tripId - 1].departure} -> ${trips[tickets[length - 1].tripId - 1].destination}
@@ -440,7 +458,7 @@ while (Quitter === false) {
             trajet_min()
             break;
         case 9: // 9. ticket annulle 
-         console.log("=== TICKETS DISPONIBLES ===")
+            console.log("=== TICKETS ANNULLE ===")
             for (let i = 0; i < annule.length; i++) {
                 console.log(`
                     Ticket# ${annule[i].id}
@@ -450,9 +468,9 @@ while (Quitter === false) {
                     Prix : ${annule[i].price}
                     `)
             }
-        break
+            break
         case 0: // 0. Quitter .
-            console.log("by by")
+            console.log("THANK U <3")
             Quitter = true
             break;
     }
