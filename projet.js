@@ -269,7 +269,7 @@ function Tri_croissant() {
         any. Quitte
         `)
     let number = Number(prompt("entrer votre choix :"))
-    const tri_trips = trips;
+    const tri_trips = [...trips]; ;
     // tri by  : buble sort :
     for (let i = 0; i < tri_trips.length - 1; i++) {
         for (let j = 0; j < tri_trips.length - 1 - i; j++) {
@@ -315,7 +315,8 @@ function trajet_min() {
     let min = trips[0].availableSeats;
     let index = 0;
     for (i = 0; i < tickets.length; i++) {
-        if (min > trips[0].availableSeats) {
+        if (min > trips[i].availableSeats) {
+            min = trips[i].availableSeats
             index = i
         }
     }
