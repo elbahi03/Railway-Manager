@@ -195,35 +195,35 @@ const tickets = [
         id: 1,
         passengerName:"mohammed",
         tripId: 1,
-        Place: 1,
+        seatNumber: 1,
         price: 25
     },
     {
         id: 2,
         passengerName:"yassine",
         tripId: 1,
-        Place: 2,
+        seatNumber: 2,
         price: 25
     },
     {
         id: 3,
         passengerName:"sara",
         tripId: 1,
-        Place: 3,
+        seatNumber: 3,
         price: 25
     },
     {
         id: 4,
         passengerName:"anas",
         tripId: 2,
-        Place: 1,
+        seatNumber: 1,
         price: 90
     },
     {
         id: 5,
         passengerName:"amine",
         tripId: 2,
-        Place: 2,
+        seatNumber: 2,
         price: 90
     },
     
