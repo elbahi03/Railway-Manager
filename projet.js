@@ -13,7 +13,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 50
+        availableSeats: 47
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const trips = [
         departureTime: "08:00",
         arrivalTime: "10:30",
         price: 90,
-        availableSeats: 50
+        availableSeats: 48
     },
     {
         id: 3,
@@ -190,7 +190,44 @@ const trips = [
 // ticket grobal :
 let id_grobal = 0;
 // data tichet :
-const tickets = [];
+const tickets = [
+    {
+        id: 1,
+        passengerName:"mohammed",
+        tripId: 1,
+        Place: 1,
+        price: 25
+    },
+    {
+        id: 2,
+        passengerName:"yassine",
+        tripId: 1,
+        Place: 2,
+        price: 25
+    },
+    {
+        id: 3,
+        passengerName:"sara",
+        tripId: 1,
+        Place: 3,
+        price: 25
+    },
+    {
+        id: 4,
+        passengerName:"anas",
+        tripId: 2,
+        Place: 1,
+        price: 90
+    },
+    {
+        id: 5,
+        passengerName:"amine",
+        tripId: 2,
+        Place: 2,
+        price: 90
+    },
+    
+];
 // data ticket annule :
 const annule = [];
 
@@ -269,7 +306,7 @@ function Tri_croissant() {
         any. Quitte
         `)
     let number = Number(prompt("entrer votre choix :"))
-    const tri_trips = [...trips]; ;
+    const tri_trips = [...trips];
     // tri by  : buble sort :
     for (let i = 0; i < tri_trips.length - 1; i++) {
         for (let j = 0; j < tri_trips.length - 1 - i; j++) {
@@ -287,8 +324,8 @@ function Tri_croissant() {
                     ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
                     `)
         }
-    }else if (number === 2){
-        for (let i = tri_trips.length -1 ; i >= 0; i--) {
+    } else if (number === 2) {
+        for (let i = tri_trips.length - 1; i >= 0; i--) {
             console.log(`
                     #${tri_trips[i].id} :
                     ${tri_trips[i].departure} -> ${tri_trips[i].destination} : ${tri_trips[i].price}
